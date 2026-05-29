@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres_consultorios
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: consultorios_db
+      POSTGRES_USER: consultorios_user
+      POSTGRES_PASSWORD: secret123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

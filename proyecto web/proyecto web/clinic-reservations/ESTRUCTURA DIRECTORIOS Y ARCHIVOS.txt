@@ -1,0 +1,379 @@
+
+Listado de rutas de carpetas para el volumen Windows
+El número de serie del volumen es 0897-C23D
+C:.
+│   MER.md
+│   pom.xml
+│   README.md
+│   requests.http
+│   test_output.log
+│
+├───src
+│   ├───main
+│   │   ├───java
+│   │   │   └───com
+│   │   │       └───university
+│   │   │           └───clinic
+│   │   │               │   ClinicReservationsApplication.java
+│   │   │               │
+│   │   │               ├───controller
+│   │   │               │       AppointmentController.java
+│   │   │               │       AppointmentTypeController.java
+│   │   │               │       AvailabilityController.java
+│   │   │               │       DoctorController.java
+│   │   │               │       DoctorScheduleController.java
+│   │   │               │       OfficeController.java
+│   │   │               │       PatientController.java
+│   │   │               │       ReportController.java
+│   │   │               │       SpecialtyController.java
+│   │   │               │
+│   │   │               ├───dto
+│   │   │               │       AppointmentResponse.java
+│   │   │               │       AppointmentTypeResponse.java
+│   │   │               │       AvailabilitySlotResponse.java
+│   │   │               │       CancelAppointmentRequest.java
+│   │   │               │       CompleteAppointmentRequest.java
+│   │   │               │       CreateAppointmentRequest.java
+│   │   │               │       CreateAppointmentTypeRequest.java
+│   │   │               │       CreateDoctorRequest.java
+│   │   │               │       CreateDoctorScheduleRequest.java
+│   │   │               │       CreateOfficeRequest.java
+│   │   │               │       CreatePatientRequest.java
+│   │   │               │       CreateSpecialtyRequest.java
+│   │   │               │       DoctorProductivityResponse.java
+│   │   │               │       DoctorResponse.java
+│   │   │               │       DoctorScheduleResponse.java
+│   │   │               │       NoShowPatientResponse.java
+│   │   │               │       OfficeOccupancyResponse.java
+│   │   │               │       OfficeResponse.java
+│   │   │               │       PatientResponse.java
+│   │   │               │       ReportResponse.java
+│   │   │               │       SpecialtyResponse.java
+│   │   │               │       UpdateDoctorRequest.java
+│   │   │               │       UpdateOfficeRequest.java
+│   │   │               │       UpdatePatientRequest.java
+│   │   │               │
+│   │   │               ├───entity
+│   │   │               │       Appointment.java
+│   │   │               │       AppointmentStatus.java
+│   │   │               │       AppointmentType.java
+│   │   │               │       BaseEntity.java
+│   │   │               │       Doctor.java
+│   │   │               │       DoctorSchedule.java
+│   │   │               │       Office.java
+│   │   │               │       OfficeStatus.java
+│   │   │               │       Patient.java
+│   │   │               │       PatientStatus.java
+│   │   │               │       Specialty.java
+│   │   │               │
+│   │   │               ├───exception
+│   │   │               │       BusinessException.java
+│   │   │               │       ConflictException.java
+│   │   │               │       GlobalExceptionHandler.java
+│   │   │               │       ResourceNotFoundException.java
+│   │   │               │       ValidationException.java
+│   │   │               │
+│   │   │               ├───mapper
+│   │   │               │       AppointmentMapper.java
+│   │   │               │       AppointmentTypeMapper.java
+│   │   │               │       DoctorMapper.java
+│   │   │               │       DoctorScheduleMapper.java
+│   │   │               │       OfficeMapper.java
+│   │   │               │       PatientMapper.java
+│   │   │               │       SpecialtyMapper.java
+│   │   │               │
+│   │   │               ├───repository
+│   │   │               │       AppointmentRepository.java
+│   │   │               │       AppointmentTypeRepository.java
+│   │   │               │       DoctorRepository.java
+│   │   │               │       DoctorScheduleRepository.java
+│   │   │               │       OfficeRepository.java
+│   │   │               │       PatientRepository.java
+│   │   │               │       SpecialtyRepository.java
+│   │   │               │
+│   │   │               └───service
+│   │   │                   │   AppointmentService.java
+│   │   │                   │   AppointmentTypeService.java
+│   │   │                   │   AvailabilityService.java
+│   │   │                   │   DoctorScheduleService.java
+│   │   │                   │   DoctorService.java
+│   │   │                   │   OfficeService.java
+│   │   │                   │   PatientService.java
+│   │   │                   │   ReportService.java
+│   │   │                   │   SpecialtyService.java
+│   │   │                   │
+│   │   │                   └───impl
+│   │   │                           AppointmentServiceImpl.java
+│   │   │                           AppointmentTypeServiceImpl.java
+│   │   │                           AvailabilityServiceImpl.java
+│   │   │                           DoctorScheduleServiceImpl.java
+│   │   │                           DoctorServiceImpl.java
+│   │   │                           OfficeServiceImpl.java
+│   │   │                           PatientServiceImpl.java
+│   │   │                           ReportServiceImpl.java
+│   │   │                           SpecialtyServiceImpl.java
+│   │   │
+│   │   └───resources
+│   │           application.yml
+│   │
+│   └───test
+│       └───java
+│           └───com
+│               └───university
+│                   └───clinic
+│                       │   ClinicReservationsApplicationTest.java
+│                       │
+│                       ├───controller
+│                       │       AppointmentControllerTest.java
+│                       │       AvailabilityControllerTest.java
+│                       │       DoctorControllerTest.java
+│                       │       PatientControllerTest.java
+│                       │       ReportControllerTest.java
+│                       │
+│                       ├───integration
+│                       │       AppointmentRepositoryIntegrationTest.java
+│                       │       DoctorRepositoryIntegrationTest.java
+│                       │       DoctorScheduleRepositoryIntegrationTest.java
+│                       │       OfficeRepositoryIntegrationTest.java
+│                       │       PatientRepositoryIntegrationTest.java
+│                       │
+│                       └───service
+│                               AppointmentServiceImplTest.java
+│                               AppointmentTypeServiceImplTest.java
+│                               AvailabilityServiceImplTest.java
+│                               DoctorScheduleServiceImplTest.java
+│                               DoctorServiceImplTest.java
+│                               OfficeServiceImplTest.java
+│                               PatientServiceImplTest.java
+│                               ReportServiceImplTest.java
+│                               SpecialtyServiceImplTest.java
+│
+└───target
+    ├───classes
+    │   │   application.yml
+    │   │
+    │   └───com
+    │       └───university
+    │           └───clinic
+    │               │   ClinicReservationsApplication.class
+    │               │
+    │               ├───controller
+    │               │       AppointmentController.class
+    │               │       AppointmentTypeController.class
+    │               │       AvailabilityController.class
+    │               │       DoctorController.class
+    │               │       DoctorScheduleController.class
+    │               │       OfficeController.class
+    │               │       PatientController.class
+    │               │       ReportController.class
+    │               │       SpecialtyController.class
+    │               │
+    │               ├───dto
+    │               │       AppointmentResponse$AppointmentResponseBuilder.class
+    │               │       AppointmentResponse.class
+    │               │       AppointmentTypeResponse$AppointmentTypeResponseBuilder.class
+    │               │       AppointmentTypeResponse.class
+    │               │       AvailabilitySlotResponse$AvailabilitySlotResponseBuilder.class
+    │               │       AvailabilitySlotResponse.class
+    │               │       CancelAppointmentRequest$CancelAppointmentRequestBuilder.class
+    │               │       CancelAppointmentRequest.class
+    │               │       CompleteAppointmentRequest$CompleteAppointmentRequestBuilder.class
+    │               │       CompleteAppointmentRequest.class
+    │               │       CreateAppointmentRequest$CreateAppointmentRequestBuilder.class
+    │               │       CreateAppointmentRequest.class
+    │               │       CreateAppointmentTypeRequest$CreateAppointmentTypeRequestBuilder.class
+    │               │       CreateAppointmentTypeRequest.class
+    │               │       CreateDoctorRequest$CreateDoctorRequestBuilder.class
+    │               │       CreateDoctorRequest.class
+    │               │       CreateDoctorScheduleRequest$CreateDoctorScheduleRequestBuilder.class
+    │               │       CreateDoctorScheduleRequest.class
+    │               │       CreateOfficeRequest$CreateOfficeRequestBuilder.class
+    │               │       CreateOfficeRequest.class
+    │               │       CreatePatientRequest$CreatePatientRequestBuilder.class
+    │               │       CreatePatientRequest.class
+    │               │       CreateSpecialtyRequest$CreateSpecialtyRequestBuilder.class
+    │               │       CreateSpecialtyRequest.class
+    │               │       DoctorProductivityResponse$DoctorProductivityResponseBuilder.class
+    │               │       DoctorProductivityResponse.class
+    │               │       DoctorResponse$DoctorResponseBuilder.class
+    │               │       DoctorResponse.class
+    │               │       DoctorScheduleResponse$DoctorScheduleResponseBuilder.class
+    │               │       DoctorScheduleResponse.class
+    │               │       NoShowPatientResponse$NoShowPatientResponseBuilder.class
+    │               │       NoShowPatientResponse.class
+    │               │       OfficeOccupancyResponse$OfficeOccupancyResponseBuilder.class
+    │               │       OfficeOccupancyResponse.class
+    │               │       OfficeResponse$OfficeResponseBuilder.class
+    │               │       OfficeResponse.class
+    │               │       PatientResponse$PatientResponseBuilder.class
+    │               │       PatientResponse.class
+    │               │       ReportResponse$ReportResponseBuilder.class
+    │               │       ReportResponse.class
+    │               │       SpecialtyResponse$SpecialtyResponseBuilder.class
+    │               │       SpecialtyResponse.class
+    │               │       UpdateDoctorRequest$UpdateDoctorRequestBuilder.class
+    │               │       UpdateDoctorRequest.class
+    │               │       UpdateOfficeRequest$UpdateOfficeRequestBuilder.class
+    │               │       UpdateOfficeRequest.class
+    │               │       UpdatePatientRequest$UpdatePatientRequestBuilder.class
+    │               │       UpdatePatientRequest.class
+    │               │
+    │               ├───entity
+    │               │       Appointment$AppointmentBuilder.class
+    │               │       Appointment.class
+    │               │       AppointmentStatus.class
+    │               │       AppointmentType$AppointmentTypeBuilder.class
+    │               │       AppointmentType.class
+    │               │       BaseEntity.class
+    │               │       Doctor$DoctorBuilder.class
+    │               │       Doctor.class
+    │               │       DoctorSchedule$DoctorScheduleBuilder.class
+    │               │       DoctorSchedule.class
+    │               │       Office$OfficeBuilder.class
+    │               │       Office.class
+    │               │       OfficeStatus.class
+    │               │       Patient$PatientBuilder.class
+    │               │       Patient.class
+    │               │       PatientStatus.class
+    │               │       Specialty$SpecialtyBuilder.class
+    │               │       Specialty.class
+    │               │
+    │               ├───exception
+    │               │       BusinessException.class
+    │               │       ConflictException.class
+    │               │       GlobalExceptionHandler.class
+    │               │       ResourceNotFoundException.class
+    │               │       ValidationException.class
+    │               │
+    │               ├───mapper
+    │               │       AppointmentMapper.class
+    │               │       AppointmentTypeMapper.class
+    │               │       DoctorMapper.class
+    │               │       DoctorScheduleMapper.class
+    │               │       OfficeMapper.class
+    │               │       PatientMapper.class
+    │               │       SpecialtyMapper.class
+    │               │
+    │               ├───repository
+    │               │       AppointmentRepository.class
+    │               │       AppointmentTypeRepository.class
+    │               │       DoctorRepository.class
+    │               │       DoctorScheduleRepository.class
+    │               │       OfficeRepository.class
+    │               │       PatientRepository.class
+    │               │       SpecialtyRepository.class
+    │               │
+    │               └───service
+    │                   │   AppointmentService.class
+    │                   │   AppointmentTypeService.class
+    │                   │   AvailabilityService.class
+    │                   │   DoctorScheduleService.class
+    │                   │   DoctorService.class
+    │                   │   OfficeService.class
+    │                   │   PatientService.class
+    │                   │   ReportService.class
+    │                   │   SpecialtyService.class
+    │                   │
+    │                   └───impl
+    │                           AppointmentServiceImpl.class
+    │                           AppointmentTypeServiceImpl.class
+    │                           AvailabilityServiceImpl.class
+    │                           DoctorScheduleServiceImpl.class
+    │                           DoctorServiceImpl.class
+    │                           OfficeServiceImpl.class
+    │                           PatientServiceImpl.class
+    │                           ReportServiceImpl.class
+    │                           SpecialtyServiceImpl.class
+    │
+    ├───generated-sources
+    │   └───annotations
+    ├───generated-test-sources
+    │   └───test-annotations
+    ├───maven-status
+    │   └───maven-compiler-plugin
+    │       ├───compile
+    │       │   └───default-compile
+    │       │           createdFiles.lst
+    │       │           inputFiles.lst
+    │       │
+    │       └───testCompile
+    │           └───default-testCompile
+    │                   createdFiles.lst
+    │                   inputFiles.lst
+    │
+    ├───surefire-reports
+    │       2026-04-05T17-18-22_157-jvmRun1.dump
+    │       2026-04-05T17-18-22_157-jvmRun1.dumpstream
+    │       com.university.clinic.ClinicReservationsApplicationTest.txt
+    │       com.university.clinic.controller.AppointmentControllerTest.txt
+    │       com.university.clinic.controller.AvailabilityControllerTest.txt
+    │       com.university.clinic.controller.DoctorControllerTest.txt
+    │       com.university.clinic.controller.PatientControllerTest.txt
+    │       com.university.clinic.controller.ReportControllerTest.txt
+    │       com.university.clinic.integration.AppointmentRepositoryIntegrationTest.txt
+    │       com.university.clinic.integration.DoctorRepositoryIntegrationTest.txt
+    │       com.university.clinic.integration.DoctorScheduleRepositoryIntegrationTest.txt
+    │       com.university.clinic.integration.OfficeRepositoryIntegrationTest.txt
+    │       com.university.clinic.integration.PatientRepositoryIntegrationTest.txt
+    │       com.university.clinic.service.AppointmentServiceImplTest.txt
+    │       com.university.clinic.service.AppointmentTypeServiceImplTest.txt
+    │       com.university.clinic.service.AvailabilityServiceImplTest.txt
+    │       com.university.clinic.service.DoctorScheduleServiceImplTest.txt
+    │       com.university.clinic.service.DoctorServiceImplTest.txt
+    │       com.university.clinic.service.OfficeServiceImplTest.txt
+    │       com.university.clinic.service.PatientServiceImplTest.txt
+    │       com.university.clinic.service.ReportServiceImplTest.txt
+    │       com.university.clinic.service.SpecialtyServiceImplTest.txt
+    │       TEST-com.university.clinic.ClinicReservationsApplicationTest.xml
+    │       TEST-com.university.clinic.controller.AppointmentControllerTest.xml
+    │       TEST-com.university.clinic.controller.AvailabilityControllerTest.xml
+    │       TEST-com.university.clinic.controller.DoctorControllerTest.xml
+    │       TEST-com.university.clinic.controller.PatientControllerTest.xml
+    │       TEST-com.university.clinic.controller.ReportControllerTest.xml
+    │       TEST-com.university.clinic.integration.AppointmentRepositoryIntegrationTest.xml
+    │       TEST-com.university.clinic.integration.DoctorRepositoryIntegrationTest.xml
+    │       TEST-com.university.clinic.integration.DoctorScheduleRepositoryIntegrationTest.xml
+    │       TEST-com.university.clinic.integration.OfficeRepositoryIntegrationTest.xml
+    │       TEST-com.university.clinic.integration.PatientRepositoryIntegrationTest.xml
+    │       TEST-com.university.clinic.service.AppointmentServiceImplTest.xml
+    │       TEST-com.university.clinic.service.AppointmentTypeServiceImplTest.xml
+    │       TEST-com.university.clinic.service.AvailabilityServiceImplTest.xml
+    │       TEST-com.university.clinic.service.DoctorScheduleServiceImplTest.xml
+    │       TEST-com.university.clinic.service.DoctorServiceImplTest.xml
+    │       TEST-com.university.clinic.service.OfficeServiceImplTest.xml
+    │       TEST-com.university.clinic.service.PatientServiceImplTest.xml
+    │       TEST-com.university.clinic.service.ReportServiceImplTest.xml
+    │       TEST-com.university.clinic.service.SpecialtyServiceImplTest.xml
+    │
+    └───test-classes
+        └───com
+            └───university
+                └───clinic
+                    │   ClinicReservationsApplicationTest.class
+                    │
+                    ├───controller
+                    │       AppointmentControllerTest.class
+                    │       AvailabilityControllerTest.class
+                    │       DoctorControllerTest.class
+                    │       PatientControllerTest.class
+                    │       ReportControllerTest.class
+                    │
+                    ├───integration
+                    │       AppointmentRepositoryIntegrationTest.class
+                    │       DoctorRepositoryIntegrationTest.class
+                    │       DoctorScheduleRepositoryIntegrationTest.class
+                    │       OfficeRepositoryIntegrationTest.class
+                    │       PatientRepositoryIntegrationTest.class
+                    │
+                    └───service
+                            AppointmentServiceImplTest$CreateAppointment.class
+                            AppointmentServiceImplTest$StateMachine.class
+                            AppointmentServiceImplTest.class
+                            AppointmentTypeServiceImplTest.class
+                            AvailabilityServiceImplTest.class
+                            DoctorScheduleServiceImplTest.class
+                            DoctorServiceImplTest.class
+                            OfficeServiceImplTest.class
+                            PatientServiceImplTest.class
+                            ReportServiceImplTest.class
+                            SpecialtyServiceImplTest.class

@@ -1,0 +1,220 @@
+﻿Programación Web
+Taller de Programación Web:Plataforma de Reservas de Consultorios Médicos Universitarios
+Enunciado formal del taller con alcance funcional, reglas de negocio, historias de usuario, clases obligatorias, pruebas y rúbrica.
+Stack obligatorioJava 21 · Spring Boot 4 · PostgreSQL · Testcontainers · JUnit 5 · Mockito · React 
+
+Documento de enunciado formal, criterios de evaluación y especificación técnica.
+
+1. Contexto del problema
+La universidad cuenta con un servicio interno de salud que ofrece atención en medicina general, psicología, fisioterapia y nutrición. Actualmente la gestión de citas se realiza de forma manual o con herramientas dispersas, lo que genera duplicidad de reservas, uso ineficiente de consultorios, citas en horarios no permitidos y poca trazabilidad de los estados de atención.
+La institución requiere una API REST que permita administrar pacientes, doctores, especialidades, consultorios, tipos de cita, horarios de atención y citas médicas, garantizando reglas de negocio reales, control de disponibilidad y reportes operativos básicos.
+2. Objetivo general
+Diseñar e implementar una aplicación backend con arquitectura por capas, base de datos relacional y pruebas automatizadas, utilizando el stack académico definido para el curso.
+3. Objetivos específicos
+• Diseñar una aplicación backend con arquitectura por capas usando Java 21, Spring Boot 4, PostgreSQL y pruebas automatizadas.
+• Implementar una capa repository con consultas derivadas y JPQL, acompañada por pruebas de integración con Testcontainers.
+• Implementar una capa service con reglas de negocio, validaciones de flujo y manejo de conflictos mediante pruebas unitarias con JUnit 5 y Mockito.
+• Implementar una capa controller con API REST, validaciones de entrada, manejo de errores y pruebas de controlador con MockMvc.
+4. Alcance funcional
+• Registrar pacientes, doctores, especialidades, consultorios y tipos de cita.
+• Configurar los horarios de atención de los doctores.
+• Consultar disponibilidad real por doctor y fecha.
+• Crear, confirmar, cancelar, completar o marcar como no asistida una cita.
+• Consultar citas por filtros y generar reportes de ocupación, productividad e inasistencia.
+Consultas mínimas esperadas en la capa repository
+Consultas derivadas (Query Methods)
+• Buscar doctores activos por especialidad.
+• Buscar citas de un paciente por estado.
+• Buscar horarios de un doctor por día de la semana.
+• Buscar citas por rango de fecha.
+Consultas JPQL / agregación
+• Validar traslape de citas para un doctor.
+• Validar traslape de citas para un consultorio.
+• Obtener slots disponibles de un doctor en una fecha concreta.
+• Calcular ocupación diaria o por rango de consultorios.
+• Contar citas canceladas y no asistidas por especialidad.
+• Ranking de profesionales por citas completadas.
+• Pacientes con mayor número de NO_SHOW en un período.
+Lógica de negocio obligatoria en la capa service
+6.1 Reglas para creación de citas
+• No se puede crear una cita si el paciente no existe o está inactivo.
+• No se puede crear una cita si el doctor no existe o está inactivo.
+• No se puede crear una cita si el consultorio no existe o se encuentra inactivo.
+• No se puede crear una cita en una fecha y hora pasada.
+• La cita debe quedar dentro del horario laboral configurado para el doctor en el día correspondiente.
+• El campo endAt no debe llegar calculado por el cliente; el servicio debe construirlo usando la duración del tipo de cita.
+• No puede existir traslape de horario para el doctor en el mismo rango temporal.
+• No puede existir traslape de horario para el consultorio en el mismo rango temporal.
+• Un paciente no puede tener dos citas activas que se crucen en el tiempo.
+• Toda cita nueva debe crearse con estado inicial SCHEDULED.
+6.2 Reglas de confirmación
+• Solo una cita en estado SCHEDULED puede pasar a CONFIRMED.
+• No se puede confirmar una cita cancelada, completada o marcada como NO_SHOW.
+• La confirmación debe actualizar la fecha de modificación y preservar trazabilidad básica del cambio.
+6.3 Reglas de cancelación
+• Solo se pueden cancelar citas en estado SCHEDULED o CONFIRMED.
+• No se puede cancelar una cita COMPLETED ni una cita NO_SHOW.
+• La cancelación debe registrar un motivo obligatorio.
+• La cancelación debe liberar inmediatamente el bloque de agenda del doctor y del consultorio.
+6.4 Reglas de finalización
+• Solo una cita CONFIRMED puede pasar a COMPLETED.
+• No se puede completar una cita si la hora actual es anterior al inicio programado.
+• Debe permitirse registrar observaciones administrativas al finalizar la cita.
+6.5 Reglas de no asistencia
+• Solo una cita CONFIRMED puede pasar a NO_SHOW.
+• No se puede marcar una cita como NO_SHOW antes de su hora de inicio.
+• El sistema debe permitir contar inasistencias por paciente en un período determinado.
+6.6 Reglas de disponibilidad y reportes
+• La disponibilidad depende del horario laboral del doctor, de las citas existentes y de la duración del tipo de cita.
+• La generación de slots debe devolver únicamente bloques completos y libres, no horas aproximadas.
+• Debe poder calcularse la ocupación de consultorios por rango de fechas.
+• Debe listarse la productividad de doctores por número de citas completadas.
+• Deben identificarse pacientes con mayor cantidad de no asistencias.
+Historias de usuario
+Código
+Historia de usuario
+HU-01
+Como administrador del sistema, quiero registrar pacientes para poder asignarles citas médicas.
+HU-02
+Como administrador, quiero registrar doctores y asociarlos a una especialidad para organizar correctamente la oferta médica.
+HU-03
+Como administrador, quiero registrar consultorios disponibles para gestionar adecuadamente los espacios físicos.
+HU-04
+Como administrador, quiero registrar tipos de cita con una duración definida para que el sistema calcule automáticamente el rango de tiempo de cada reserva.
+HU-05
+Como administrador, quiero configurar los horarios de atención de cada doctor para controlar su agenda disponible.
+HU-06
+Como usuario del sistema, quiero consultar la disponibilidad de un doctor en una fecha dada para reservar una cita sin conflictos.
+HU-07
+Como usuario del sistema, quiero crear una cita médica para un paciente validando que no existan traslapes de horario.
+HU-08
+Como recepcionista, quiero confirmar una cita programada para dejar constancia de que fue validada previamente.
+HU-09
+Como recepcionista, quiero cancelar una cita indicando un motivo para liberar el espacio de agenda y mantener trazabilidad.
+HU-10
+Como profesional de salud, quiero marcar una cita como completada para cerrar el ciclo de atención.
+HU-11
+Como administrador, quiero marcar una cita como no asistida para llevar control de pacientes incumplidos.
+HU-12
+Como coordinador, quiero consultar reportes de ocupación, productividad e inasistencia para apoyar la toma de decisiones.
+
+Diseño mínimo de base de datos
+Tabla
+Propósito funcional
+patients
+Almacena la identidad del paciente, sus datos de contacto y su estado de actividad.
+specialties
+Catálogo de especialidades médicas disponibles dentro del sistema.
+doctors
+Representa a los profesionales de salud y su relación con una especialidad.
+offices
+Gestiona consultorios físicos, ubicación y estado de disponibilidad estructural.
+appointment_types
+Define tipos de cita y su duración oficial en minutos.
+doctor_schedules
+Registra las franjas horarias de atención de cada doctor por día de la semana.
+appointments
+Almacena la reserva médica, su rango temporal, estado y trazabilidad básica.
+
+Relaciones mínimas
+• Una especialidad tiene muchos doctores.
+• Un doctor tiene muchos horarios de atención.
+• Un paciente tiene muchas citas.
+• Un doctor tiene muchas citas.
+• Un consultorio tiene muchas citas.
+• Un tipo de cita tiene muchas citas.
+Endpoints mínimos a implementar
+Módulo
+Endpoints
+Pacientes
+• POST /api/patients
+• GET /api/patients/{id}
+• GET /api/patients
+• PUT /api/patients/{id}
+Doctores
+• POST /api/doctors
+• GET /api/doctors/{id}
+• GET /api/doctors
+• PUT /api/doctors/{id}
+Especialidades
+• POST /api/specialties
+• GET /api/specialties
+Consultorios
+• POST /api/offices
+• GET /api/offices
+• PUT /api/offices/{id}
+Tipos de cita
+• POST /api/appointment-types
+• GET /api/appointment-types
+Horarios doctor
+• POST /api/doctors/{doctorId}/schedules
+• GET /api/doctors/{doctorId}/schedules
+Citas
+• POST /api/appointments
+• GET /api/appointments/{id}
+• GET /api/appointments
+• PUT /api/appointments/{id}/confirm
+• PUT /api/appointments/{id}/cancel
+• PUT /api/appointments/{id}/complete
+• PUT /api/appointments/{id}/no-show
+Disponibilidad y reportes
+• GET /api/availability/doctors/{doctorId}
+• GET /api/reports/office-occupancy
+• GET /api/reports/doctor-productivity
+• GET /api/reports/no-show-patients
+
+Lista exacta de clases a implementar
+Grupo
+Clases obligatorias
+Entidades
+PatientSpecialtyDoctorOfficeAppointmentTypeDoctorScheduleAppointment
+Enums
+AppointmentStatusOfficeStatusPatientStatus
+Repositories
+PatientRepositorySpecialtyRepositoryDoctorRepositoryOfficeRepositoryAppointmentTypeRepositoryDoctorScheduleRepositoryAppointmentRepository
+DTOs request
+CreatePatientRequestUpdatePatientRequestCreateSpecialtyRequestCreateDoctorRequestUpdateDoctorRequestCreateOfficeRequestUpdateOfficeRequestCreateAppointmentTypeRequestCreateDoctorScheduleRequestCreateAppointmentRequestCancelAppointmentRequest
+DTOs response
+PatientResponseSpecialtyResponseDoctorResponseOfficeResponseAppointmentTypeResponseDoctorScheduleResponseAppointmentResponseAvailabilitySlotResponseOfficeOccupancyResponseDoctorProductivityResponseNoShowPatientResponse
+Services
+PatientServiceSpecialtyServiceDoctorServiceOfficeServiceAppointmentTypeServiceDoctorScheduleServiceAppointmentServiceAvailabilityServiceReportService
+Implementaciones service
+PatientServiceImplSpecialtyServiceImplDoctorServiceImplOfficeServiceImplAppointmentTypeServiceImplDoctorScheduleServiceImplAppointmentServiceImplAvailabilityServiceImplReportServiceImpl
+Controllers
+PatientControllerSpecialtyControllerDoctorControllerOfficeControllerAppointmentTypeControllerDoctorScheduleControllerAppointmentControllerAvailabilityControllerReportController
+Mappers
+PatientMapperSpecialtyMapperDoctorMapperOfficeMapperAppointmentTypeMapperDoctorScheduleMapperAppointmentMapper
+Excepciones y manejo global
+ResourceNotFoundExceptionBusinessExceptionConflictExceptionValidationExceptionGlobalExceptionHandler
+
+Pruebas obligatorias
+Componente
+Alcance mínimo esperado
+Repository integration tests
+• Implementar al menos: PatientRepositoryIntegrationTest, DoctorRepositoryIntegrationTest, DoctorScheduleRepositoryIntegrationTest, AppointmentRepositoryIntegrationTest y OfficeRepositoryIntegrationTest.
+• Cubrir como mínimo: búsqueda de doctores por especialidad, verificación de traslapes de citas, búsqueda de citas por rango de fechas, cálculo de ocupación y consulta de inasistencias.
+Service unit tests
+• Implementar al menos: AppointmentServiceImplTest, AvailabilityServiceImplTest y DoctorScheduleServiceImplTest.
+• Cubrir como mínimo: no permitir cita en el pasado, no permitir traslape de doctor, no permitir traslape de consultorio, no permitir cita fuera del horario, calcular endAt correctamente, cancelar, completar y marcar NO_SHOW correctamente.
+Controller tests
+• Implementar al menos: AppointmentControllerTest, DoctorControllerTest, PatientControllerTest y AvailabilityControllerTest.
+• Cubrir como mínimo: creación válida, errores de validación, 404 por recurso no encontrado, 409 por conflicto de horario y consulta de disponibilidad.
+
+Implementación del frontend
+Basado en la API expuesta por el backend se deberá implementar la siguiente fronend. Tener en cuenta que se deben utilizar todos los endpoint desarrollados. El frontend deberá consumir dichos endpoint.
+
+Las vistas serán las descritas en el archivo adjunto UMO - Standalone.html
+
+Entregables
+   • Código duente frontend en react
+• Proyecto fuente backend en Maven, organizado por capas y paquetes.
+• Diagrama entidad-relación.
+• Colección de endpoints o archivo equivalente para pruebas manuales.
+• README técnico con reglas de negocio, decisiones de diseño y forma de ejecución.
+• Pruebas automáticas funcionando correctamente.
+
+
+Observaciones para la entrega
+• Se espera una solución funcional, coherente con las reglas de negocio y correctamente separada por capas.
+• Las pruebas deben ser ejecutables y estables; no se aceptarán pruebas comentadas o incompletas.
+• El diseño del proyecto debe privilegiar claridad, mantenibilidad y consistencia.

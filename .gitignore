@@ -1,0 +1,34 @@
+# IDE / Editor configurations
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Node / Frontend ignores
+node_modules/
+dist/
+/taskboard-react-main/taskboard-react-main/node_modules/
+/taskboard-react-main/taskboard-react-main/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Java / Maven ignores
+target/
+/proyecto web/proyecto web/clinic-reservations/target/
+*.class
+*.db
+*.log
+test_output.log
+test_output_utf8.log
+
+# OS ignores
+.DS_Store
+Thumbs.db
+
+# Docker data volume
+docker/postgres_data/
+pgdata/

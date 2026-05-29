@@ -1,0 +1,227 @@
+### ==============================================
+### ESPECIALIDADES
+### ==============================================
+
+### Crear Especialidad
+POST http://localhost:8080/api/specialties
+Content-Type: application/json
+
+{
+    "name": "Cardiología"
+}
+
+### Obtener Especialidades
+GET http://localhost:8080/api/specialties
+
+### Obtener Especialidad por ID
+GET http://localhost:8080/api/specialties/1
+
+
+### ==============================================
+### DOCTORES
+### ==============================================
+
+### Crear Doctor
+POST http://localhost:8080/api/doctors
+Content-Type: application/json
+
+{
+    "firstName": "Carlos",
+    "lastName": "Rodríguez",
+    "licenseNumber": "X998877",
+    "specialtyId": 1
+}
+
+### Obtener todos los Doctores
+GET http://localhost:8080/api/doctors
+
+### Obtener Doctor por ID
+GET http://localhost:8080/api/doctors/1
+
+### Actualizar Doctor
+PUT http://localhost:8080/api/doctors/1
+Content-Type: application/json
+
+{
+    "firstName": "Carlos Andrés",
+    "lastName": "Rodríguez",
+    "licenseNumber": "X998877",
+    "specialtyId": 1,
+    "active": true
+}
+
+
+### ==============================================
+### PACIENTES
+### ==============================================
+
+### Crear Paciente
+POST http://localhost:8080/api/patients
+Content-Type: application/json
+
+{
+    "firstName": "Ana",
+    "lastName": "Gómez",
+    "universityId": "11223344",
+    "email": "ana.gomez@mail.com",
+    "phone": "555-8765"
+}
+
+### Obtener todos los Pacientes
+GET http://localhost:8080/api/patients
+
+### Obtener Paciente por ID
+GET http://localhost:8080/api/patients/1
+
+### Actualizar Paciente
+PUT http://localhost:8080/api/patients/1
+Content-Type: application/json
+
+{
+    "firstName": "Ana Lucia",
+    "lastName": "Gómez",
+    "universityId": "11223344",
+    "email": "ana.gomezl@mail.com",
+    "phone": "555-9988",
+    "status": "ACTIVE"
+}
+
+
+### ==============================================
+### CONSULTORIOS (OFFICES)
+### ==============================================
+
+### Crear Consultorio
+POST http://localhost:8080/api/offices
+Content-Type: application/json
+
+{
+    "name": "Consultorio 101",
+    "floor": 1
+}
+
+### Obtener Consultorios
+GET http://localhost:8080/api/offices
+
+### Obtener Consultorio por ID
+GET http://localhost:8080/api/offices/1
+
+### Modificar Consultorio
+PUT http://localhost:8080/api/offices/1
+Content-Type: application/json
+
+{
+    "name": "Consultorio 101A",
+    "floor": 1,
+    "status": "ACTIVE"
+}
+
+
+### ==============================================
+### TIPOS DE CITA (APPOINTMENT TYPES)
+### ==============================================
+
+### Crear Tipo de Cita
+POST http://localhost:8080/api/appointment-types
+Content-Type: application/json
+
+{
+    "name": "Chequeo General",
+    "durationMinutes": 30
+}
+
+### Obtener Tipos de Cita
+GET http://localhost:8080/api/appointment-types
+
+
+### ==============================================
+### HORARIOS DE DOCTOR (DOCTOR SCHEDULES)
+### ==============================================
+
+### Crear Horario para el Doctor (Doctor ID = 1)
+POST http://localhost:8080/api/doctors/1/schedules
+Content-Type: application/json
+
+{
+    "dayOfWeek": "MONDAY",
+    "startTime": "08:00:00",
+    "endTime": "14:00:00"
+}
+
+### Obtener Horarios de un Doctor
+GET http://localhost:8080/api/doctors/1/schedules
+
+
+### ==============================================
+### DISPONIBILIDAD (AVAILABILITY)
+### ==============================================
+
+### Consultar Disponibilidad de Slots del Doctor (calcula huecos cruzando horarios con citas)
+GET http://localhost:8080/api/availability/doctors/1?date=2026-04-20&durationMinutes=30
+
+
+### ==============================================
+### CITAS (APPOINTMENTS) Y TRANSICIÓN DE ESTADOS
+### ==============================================
+
+### Crear Cita (La crea en estado SCHEDULED y auto-calcula EndAt)
+POST http://localhost:8080/api/appointments
+Content-Type: application/json
+
+{
+    "patientId": 1,
+    "doctorId": 1,
+    "officeId": 1,
+    "appointmentTypeId": 1,
+    "startAt": "2026-04-20T09:00:00",
+    "notes": "Dolor de cabeza leve"
+}
+
+### Obtener Todas las Citas
+GET http://localhost:8080/api/appointments
+
+### Filtrar Citas por Criterios
+GET http://localhost:8080/api/appointments?doctorId=1
+###
+GET http://localhost:8080/api/appointments?patientId=1
+###
+GET http://localhost:8080/api/appointments?status=SCHEDULED
+###
+GET http://localhost:8080/api/appointments?from=2026-04-01T00:00:00&to=2026-04-30T23:59:59
+
+### 1️⃣ Avanzar Estado: Confirmar Cita (SCHEDULED -> CONFIRMED)
+PUT http://localhost:8080/api/appointments/1/confirm
+
+### 2️⃣ Avanzar Estado: Completar Cita (CONFIRMED -> COMPLETED)
+### Puede enviar opcionalmente observaciones finales.
+PUT http://localhost:8080/api/appointments/1/complete
+Content-Type: application/json
+
+{
+    "notes": "El paciente se retiró con fórmula médica"
+}
+
+### 3️⃣ Avanzar Estado: Asistencia Fallida (CONFIRMED -> NO_SHOW)
+PUT http://localhost:8080/api/appointments/1/no-show
+
+### 4️⃣ Avanzar Estado: Cancelar Cita (CONFIRMED/SCHEDULED -> CANCELLED)
+PUT http://localhost:8080/api/appointments/1/cancel
+Content-Type: application/json
+
+{
+    "reason": "El doctor tuvo una urgencia familiar"
+}
+
+
+### ==============================================
+### REPORTES ESTADÍSTICOS Y MÉTRICAS
+### ==============================================
+
+### A) Reporte Analítico de Ocupación de Consultorios
+GET http://localhost:8080/api/reports/office-occupancy?from=2026-04-01T00:00:00&to=2026-04-30T23:59:59
+
+### B) Reporte de Productividad Médica y Tasas de Completitud
+GET http://localhost:8080/api/reports/doctor-productivity?from=2026-04-01T00:00:00&to=2026-04-30T23:59:59
+
+### C) Reporte Conteo de Ausencias (No-Show) de Pacientes Problemáticos
+GET http://localhost:8080/api/reports/no-show-patients?from=2026-04-01T00:00:00&to=2026-04-30T23:59:59
