@@ -10,9 +10,9 @@ El sistema completo automatiza la gestión y asignación de citas, previene cruc
 
 El proyecto está organizado en las siguientes carpetas del espacio de trabajo:
 
-- **[Proyecto Web (Backend)](file:///c:/Users/maria/Downloads/consultorios/proyecto%20web/proyecto%20web/clinic-reservations/)**: Código fuente Java con Spring Boot, persistencia con PostgreSQL, Hibernate y pruebas automáticas.
-- **[Taskboard React (Frontend)](file:///c:/Users/maria/Downloads/consultorios/taskboard-react-main/taskboard-react-main/)**: Aplicación frontend SPA construida con React, Vite y CSS Vanilla para coincidir de manera idéntica con el diseño premium "UMO - Standalone.html".
-- **[Documentación MER](file:///c:/Users/maria/Downloads/consultorios/proyecto%20web/proyecto%20web/clinic-reservations/MER.md)**: Diagrama entidad-relación y modelo conceptual de persistencia.
+- **[Proyecto Web (Backend)](file:///c:/Users/maria/Downloads/consultorios/backend/)**: Código fuente Java con Spring Boot, persistencia con PostgreSQL, Hibernate y pruebas automáticas.
+- **[Taskboard React (Frontend)](file:///c:/Users/maria/Downloads/consultorios/frontend/)**: Aplicación frontend SPA construida con React, Vite y CSS Vanilla para coincidir de manera idéntica con el diseño premium "UMO - Standalone.html".
+- **[Documentación MER](file:///c:/Users/maria/Downloads/consultorios/backend/MER.md)**: Diagrama entidad-relación y modelo conceptual de persistencia.
 
 ---
 
@@ -25,7 +25,7 @@ El proyecto cuenta con una definición de servicios en Docker Compose. La base d
 
 1. Abra una terminal en la ruta de Docker:
    ```bash
-   cd "proyecto web/proyecto web/docker"
+   cd "backend/docker"
    ```
 2. Ejecute el comando para iniciar el contenedor:
    ```bash
@@ -41,7 +41,7 @@ El proyecto cuenta con una definición de servicios en Docker Compose. La base d
 ### Paso 2: Ejecutar el Backend (Spring Boot)
 1. Navegue al directorio del proyecto backend:
    ```bash
-   cd "proyecto web/proyecto web/clinic-reservations"
+   cd "backend"
    ```
 2. Compile y ejecute la aplicación con Maven:
    ```bash
@@ -50,12 +50,12 @@ El proyecto cuenta con una definición de servicios en Docker Compose. La base d
    El backend iniciará su servidor Tomcat en el puerto estándar `8080` (API base: `http://localhost:8080/api`).
 
    > [!TIP]
-   > **CORS habilitado**: El backend incluye la clase [WebConfig.java](file:///c:/Users/maria/Downloads/consultorios/proyecto%20web/proyecto%20web/clinic-reservations/src/main/java/com/university/clinic/config/WebConfig.java) que habilita peticiones cruzadas desde el origen del frontend (`http://localhost:5173`) para métodos `GET, POST, PUT, DELETE, OPTIONS`.
+   > **CORS habilitado**: El backend incluye la clase [WebConfig.java](file:///c:/Users/maria/Downloads/consultorios/backend/src/main/java/com/university/clinic/config/WebConfig.java) que habilita peticiones cruzadas desde el origen del frontend (`http://localhost:5173`) para métodos `GET, POST, PUT, DELETE, OPTIONS`.
 
 ### Paso 3: Ejecutar el Frontend (React + Vite)
 1. Abra una nueva terminal en el directorio del frontend:
    ```bash
-   cd "taskboard-react-main/taskboard-react-main"
+   cd "frontend"
    ```
 2. Instale las dependencias necesarias:
    ```bash
@@ -76,12 +76,12 @@ El backend tiene una batería de pruebas automatizadas que usan `Testcontainers`
 
 Para ejecutar las pruebas:
 ```bash
-cd "proyecto web/proyecto web/clinic-reservations"
+cd "backend"
 mvn clean test
 ```
 
 ### Pruebas Manuales de la API REST
-Se incluye una colección de pruebas en formato HTTP Client en el archivo **[requests.http](file:///c:/Users/maria/Downloads/consultorios/proyecto%20web/proyecto%20web/clinic-reservations/requests.http)**. Puede ejecutar las peticiones directamente en VS Code con la extensión REST Client instalada para simular el comportamiento completo de la API.
+Se incluye una colección de pruebas en formato HTTP Client en el archivo **[requests.http](file:///c:/Users/maria/Downloads/consultorios/backend/requests.http)**. Puede ejecutar las peticiones directamente en VS Code con la extensión REST Client instalada para simular el comportamiento completo de la API.
 
 ---
 
